@@ -1,31 +1,16 @@
-import { useState } from "react"; //
+import React, { useState } from "react"; //
+import { useAuth } from "../../adapters/auth/auth-adapter";
 
-export const LoginForm = () => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState<boolean>(false);
+export default function LoginForm() {
+  const { user, loading, error, login } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    if (!username || !password) {
-      setError("Por favor complete todos los campos");
-      return;
-    }
-    setLoading(true);
-    try {
-      // Simula login exitoso
-      localStorage.setItem("isAuthenticated", "true");
-      console.log("Inicio de sesión exitoso", { username, password });
-      window.location.href = "/"; // Redirige al home (puedes usar navigate también)
-    } catch (err) {
-      setError("Error al iniciar sesión. Verifique sus credenciales.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    login(username, password);
   };
+
 
   return (
     <div className="flex items-center justify-center md:px-10 bg-white/80 rounded-xl montserrat-bold xl:px-24 xl:py-10 min-h-[80vh] md:min-w-full">

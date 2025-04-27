@@ -7,7 +7,7 @@ interface PublicRouteProps {
 }
 
 const PublicRoute = ({ children }: PublicRouteProps) => {
-    const isAuthenticated = false;
+    const isAuthenticated = true;
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
   }
