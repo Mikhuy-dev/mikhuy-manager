@@ -117,41 +117,39 @@ export function AddProductForm() {
             htmlFor="image"
             className="block text-sm font-medium text-gray-700 cursor-pointer"
           >
-            <div
-              className="w-32 h-32 bg-gray-200 rounded-full flex justify-center items-center"
-              style={{
-                backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              {!imageUrl && (
-                <span className="text-gray-700 text-lg">Subir Imagen</span>
-              )}
+            <div className="relative group">
+              {/* Imagen */}
+              <div
+                className="w-32 h-32 bg-gray-200 rounded-full flex justify-center items-center"
+                style={{
+                  backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                {!imageUrl && (
+                  <span className="text-gray-700 text-lg">Subir Imagen</span>
+                )}
+              </div>
+
+              {/* Overlay al hacer hover */}
+              <div className="absolute inset-0 bg-black bg-opacity-0 rounded-full group-hover:bg-opacity-30 transition-all duration-300"></div>
+
+              {/* Input oculto */}
+              <input
+                id="image"
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={handleChange}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
             </div>
-            <input
-              id="image"
-              name="image"
-              type="file"
-              accept="image/*"
-              onChange={handleChange}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
           </label>
         </div>
       </div>
 
       {/* {errors.image && <p className="text-red-500 text-xs">{errors.image}</p>} */}
-
-      {imageUrl && (
-        <div className="flex justify-center mt-2">
-          <img
-            src={imageUrl}
-            alt="Vista previa"
-            className="w-32 h-32 rounded-full object-cover"
-          />
-        </div>
-      )}
 
       <div>
         <label
