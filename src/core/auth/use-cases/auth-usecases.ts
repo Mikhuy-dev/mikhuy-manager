@@ -5,7 +5,8 @@ export class AuthUseCases {
     constructor(private authService: AuthServicePort) {}
   
     async executeLogin(email: string, password: string): Promise<AuthLoginEntity> {
-  
+
+      
       return this.authService.login(email, password);
     }
   
