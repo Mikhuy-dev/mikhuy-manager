@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { FaPlus } from "react-icons/fa";
+import { BsUpload } from "react-icons/bs";
 
 interface FormData {
   name: string;
@@ -104,7 +106,7 @@ export function AddProductForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6 p-6">
       <label
         htmlFor="image"
         className="block text-sm font-medium text-gray-700"
@@ -115,12 +117,12 @@ export function AddProductForm() {
         <div className="relative">
           <label
             htmlFor="image"
-            className="block text-sm font-medium text-gray-700 cursor-pointer"
+            className="block text-sm font-medium text-gray-400 cursor-pointer"
           >
             <div className="relative group">
               {/* Imagen */}
               <div
-                className="w-32 h-32 bg-gray-200 rounded-full flex justify-center items-center"
+                className="w-32 h-32 border-2 border-dashed rounded-full flex justify-center items-center group-hover:border-red-700 transition-all duration-200"
                 style={{
                   backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
                   backgroundSize: "cover",
@@ -128,13 +130,12 @@ export function AddProductForm() {
                 }}
               >
                 {!imageUrl && (
-                  <span className="text-gray-700 text-lg">Subir Imagen</span>
+                  <div className="flex flex-col items-center justify-center text-gray-400 group-hover:text-red-700 transition-all duration-200">
+                    <BsUpload className="h-8 w-8 mb-2" />
+                    <span className="text-sm font-medium">Subir Imagen</span>
+                  </div>
                 )}
               </div>
-
-              {/* Overlay al hacer hover */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 rounded-full group-hover:bg-opacity-30 transition-all duration-300"></div>
-
               {/* Input oculto */}
               <input
                 id="image"
@@ -151,126 +152,139 @@ export function AddProductForm() {
 
       {/* {errors.image && <p className="text-red-500 text-xs">{errors.image}</p>} */}
 
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Nombre
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-        {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Nombre */}
+        <div className="space-y-2">
+          <label htmlFor="name" className="text-sm font-medium text-gray-700">
+            Nombre
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
+          />
+          {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+        </div>
+
+        {/* Categoría */}
+        <div className="space-y-2">
+          <label
+            htmlFor="categoryId"
+            className="text-sm font-medium text-gray-700"
+          >
+            Categoría
+          </label>
+          <input
+            id="categoryId"
+            name="categoryId"
+            type="text"
+            value={formData.categoryId}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
+          />
+          {errors.categoryId && (
+            <p className="text-red-500 text-xs">{errors.categoryId}</p>
+          )}
+        </div>
+
+        {/* Precio */}
+        <div className="space-y-2">
+          <label htmlFor="price" className="text-sm font-medium text-gray-700">
+            Precio
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <span className="text-gray-500">S/</span>
+            </div>
+            <input
+              id="price"
+              name="price"
+              type="number"
+              value={formData.price}
+              onChange={handleChange}
+              className="w-full pl-8 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
+            />
+          </div>
+          {errors.price && (
+            <p className="text-red-500 text-xs">{errors.price}</p>
+          )}
+        </div>
+
+        {/* Stock */}
+        <div className="space-y-2">
+          <label htmlFor="stock" className="text-sm font-medium text-gray-700">
+            Stock
+          </label>
+          <input
+            id="stock"
+            name="stock"
+            type="number"
+            value={formData.stock}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
+          />
+          {errors.stock && (
+            <p className="text-red-500 text-xs">{errors.stock}</p>
+          )}
+        </div>
+
+        {/* Vendedor */}
+        <div className="space-y-2 md:col-span-2">
+          <label
+            htmlFor="sellerId"
+            className="text-sm font-medium text-gray-700"
+          >
+            Vendedor
+          </label>
+          <input
+            id="sellerId"
+            name="sellerId"
+            type="text"
+            value={formData.sellerId}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
+          />
+          {errors.sellerId && (
+            <p className="text-red-500 text-xs">{errors.sellerId}</p>
+          )}
+        </div>
       </div>
 
-      <div>
-        <label
-          htmlFor="price"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Precio
-        </label>
-        <input
-          id="price"
-          name="price"
-          type="number"
-          value={formData.price}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-        {errors.price && <p className="text-red-500 text-xs">{errors.price}</p>}
-      </div>
-
-      <div>
-        <label
-          htmlFor="stock"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Stock
-        </label>
-        <input
-          id="stock"
-          name="stock"
-          type="number"
-          value={formData.stock}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-        {errors.stock && <p className="text-red-500 text-xs">{errors.stock}</p>}
-      </div>
-
-      <div>
+      {/* Descripción */}
+      <div className="space-y-2 border-b py-5">
         <label
           htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
+          className="text-sm font-medium text-gray-700"
         >
           Descripción
         </label>
-        <input
+        <textarea
           id="description"
           name="description"
-          type="text"
           value={formData.description}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, description: e.target.value }))
+          }
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm min-h-[100px] focus:ring-2 focus:ring-red-700 focus:border-red-700"
         />
         {errors.description && (
           <p className="text-red-500 text-xs">{errors.description}</p>
         )}
       </div>
 
-      <div>
-        <label
-          htmlFor="categoryId"
-          className="block text-sm font-medium text-gray-700"
+      {/* Botón de envío */}
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center"
         >
-          Categoría
-        </label>
-        <input
-          id="categoryId"
-          name="categoryId"
-          type="text"
-          value={formData.categoryId}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-        {errors.categoryId && (
-          <p className="text-red-500 text-xs">{errors.categoryId}</p>
-        )}
+          <FaPlus className="h-4 w-4 mr-2" />
+          Crear Producto
+        </button>
       </div>
-
-      <div>
-        <label
-          htmlFor="sellerId"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Vendedor
-        </label>
-        <input
-          id="sellerId"
-          name="sellerId"
-          type="text"
-          value={formData.sellerId}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-        {errors.sellerId && (
-          <p className="text-red-500 text-xs">{errors.sellerId}</p>
-        )}
-      </div>
-
-      <button
-        type="submit"
-        className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md"
-      >
-        Crear Producto
-      </button>
     </form>
   );
 }

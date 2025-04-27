@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { RiEdit2Line, RiLogoutCircleLine, RiUser3Line } from "react-icons/ri";
 import { protectedRoutes } from "../../router/routes";
 import { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 export function SidebarPanel() {
   const location = useLocation();
@@ -16,10 +17,18 @@ export function SidebarPanel() {
   return (
     <div className="w-[250px] h-screen bg-[#fffbeb] border-r flex flex-col">
       {/* Logo */}
-      <div className="flex flex-col items-center justify-center p-4 mb-6">
-        <h1 className="text-3xl font-bold">BABÀ</h1>
-        <p className="text-xs">S.A.C</p>
+      <div className="flex flex-col items-center justify-center p-4 gap-3">
+        <div className="flex flex-col items-center justify-center">
+          <img
+            src="/mikhuy_icon.webp"
+            alt="mikhuy icon image"
+            className="size-10"
+          />
+          <h2 className="text-mikhuy text-3xl">MIKHUY</h2>
+        </div>
+        <h3 className="text-gray-400 text-sm">Sistema de gestión</h3>
       </div>
+      <div className="w-full h-[1.5px] bg-gray-200 mb-3"></div>
 
       {/* Menú de navegación */}
       <nav className="flex-1">
@@ -45,14 +54,20 @@ export function SidebarPanel() {
       <div className="mb-5 mt-5 flex items-center justify-center relative">
         <button
           onClick={toggleMenu}
-          className="text-black rounded-3xl flex items-center gap-2 px-3 py-2 hover:bg-gray-200 transition-all duration-200"
+          className="text-black rounded-3xl flex items-center gap-3 px-3 py-2 hover:bg-gray-50 transition-all duration-200"
         >
-          <img
-            src="/mikhuy_icon.webp"
-            alt="mikhuy icon image"
-            className="size-6"
-          />
-          <p className="font-medium">babä@gmail.com</p>
+          <div className="border border-gray-400 rounded-full">
+            <img
+              src="/mikhuy_icon.webp"
+              alt="mikhuy icon image"
+              className="size-6 m-1"
+            />
+          </div>
+          <div className="flex flex-col items-start">
+            <p className="font-semibold">Babä</p>
+            <p className="text-gray-400 text-sm">babä@gmail.com</p>
+          </div>
+          <IoIosArrowDown />
         </button>
 
         {menuOpen && (
@@ -73,10 +88,10 @@ export function SidebarPanel() {
             </Link>
             <button
               onClick={() => console.log("Cerrar sesión")}
-              className="flex items-center gap-2 px-2 py-2 bg-red-300 hover:bg-red-400 rounded w-full text-left transition-all"
+              className="flex items-center gap-2 px-2 py-2 bg-red-500 hover:bg-red-700 rounded w-full text-left transition-all"
             >
-              <RiLogoutCircleLine className="text-black" />
-              <span className="text-black">Cerrar sesión</span>
+              <RiLogoutCircleLine className="text-white" />
+              <span className="text-white">Cerrar sesión</span>
             </button>
           </div>
         )}
