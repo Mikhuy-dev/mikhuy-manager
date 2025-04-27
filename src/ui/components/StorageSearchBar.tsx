@@ -6,7 +6,7 @@ interface StorageSearchBarProps {
 
 export const StorageSearchBar = ({ searchTerm, onSearchChange, onToggleFilters }: StorageSearchBarProps) => {
   return (
-    <div className="px-6 py-4 flex items-center gap-4">
+    <div className="py-4 flex items-center gap-4">
       {/* Input de búsqueda */}
       <input
         type="text"
