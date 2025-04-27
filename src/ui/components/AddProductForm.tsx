@@ -171,20 +171,22 @@ export function AddProductForm() {
 
         {/* Categoría */}
         <div className="space-y-2">
-          <label
-            htmlFor="categoryId"
-            className="text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="categoryId" className="text-sm font-medium">
             Categoría
           </label>
-          <input
+          <select
             id="categoryId"
             name="categoryId"
-            type="text"
-            value={formData.categoryId}
-            onChange={handleChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
-          />
+          >
+            <option value="" disabled selected>
+              Seleccionar categoría
+            </option>
+            <option value="1">Abarrotes</option>
+            <option value="2">Bebidas</option>
+            <option value="3">Snacks</option>
+            <option value="4">Lácteos</option>
+          </select>
           {errors.categoryId && (
             <p className="text-red-500 text-xs">{errors.categoryId}</p>
           )}
@@ -228,27 +230,6 @@ export function AddProductForm() {
           />
           {errors.stock && (
             <p className="text-red-500 text-xs">{errors.stock}</p>
-          )}
-        </div>
-
-        {/* Vendedor */}
-        <div className="space-y-2 md:col-span-2">
-          <label
-            htmlFor="sellerId"
-            className="text-sm font-medium text-gray-700"
-          >
-            Vendedor
-          </label>
-          <input
-            id="sellerId"
-            name="sellerId"
-            type="text"
-            value={formData.sellerId}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-red-700 focus:border-red-700"
-          />
-          {errors.sellerId && (
-            <p className="text-red-500 text-xs">{errors.sellerId}</p>
           )}
         </div>
       </div>
