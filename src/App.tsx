@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import { LoginPage } from "./ui/pages/LoginPage.tsx";
-import Home from "./ui/pages/Home.tsx";
-import NotFoundPage from "./ui/pages/NotFoundPage.tsx";
-import StoragePage from "./ui/pages/StoragePage.tsx";
-import OrderPage from "./ui/pages/OrderPage.tsx";
-import ProductsPage from "./ui/pages/ProductsPage.tsx";
-import ProtectedRoute from "./ui/components/ProtectRoutes.tsx";
-import PublicRoute from "./ui/components/PublicRoutes.tsx";
+import ProtectedRoute from "./router/ProtectRoutes.tsx";
+import PublicRoute from "./router/PublicRoutes.tsx";
+import { LoginPage } from "./pages/LoginPage.tsx";
+import Home from "./pages/Home.tsx";
+import StoragePage from "./pages/StoragePage.tsx";
+import OrderPage from "./pages/OrderPage.tsx";
+import ProductsPage from "./pages/ProductsPage.tsx";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
 
 function App() {
   return (

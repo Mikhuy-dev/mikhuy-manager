@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { SidebarPanel } from "../components/SidebarPanel";
+import { SidebarPanel } from "../ui/components/SidebarPanel";
 
 // Datos de ejemplo para la tabla de productos
 const productosData = [
