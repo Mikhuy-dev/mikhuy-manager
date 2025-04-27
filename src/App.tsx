@@ -2,11 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./router/ProtectRoutes.tsx";
 import PublicRoute from "./router/PublicRoutes.tsx";
 import { LoginPage } from "./pages/LoginPage.tsx";
-import Home from "./pages/Home.tsx";
-import StoragePage from "./pages/StoragePage.tsx";
-import OrderPage from "./pages/OrderPage.tsx";
-import ProductsPage from "./pages/ProductsPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
+import { protectedRoutes } from "./router/routes.tsx";
+import PanelWrapper from "./ui/layout/PanelWrapper.tsx";
 
 function App() {
   return (
@@ -21,39 +19,18 @@ function App() {
           }
         />
 
-        {/* Rutas protegidas */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/storage"
-          element={
-
-              <StoragePage />
-
-          }
-        />
-        <Route
-          path="/order"
-          element={
-            <ProtectedRoute>
-              <OrderPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-
-              <ProductsPage />
-
-          }
-        />
+        {/* Rutas protegidas automáticas */}
+        {protectedRoutes.map(({ path, namePage, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <ProtectedRoute>
+                <PanelWrapper namePage={namePage}>{element}</PanelWrapper>
+              </ProtectedRoute>
+            }
+          />
+        ))}
 
         {/* Página no encontrada */}
         <Route path="*" element={<NotFoundPage />} />
