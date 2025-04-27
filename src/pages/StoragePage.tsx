@@ -1,6 +1,6 @@
 export default function StoragePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center py-2">
       <h1 className="text-5xl font-bold text-center text-shadow">
         Storage Page
       </h1>

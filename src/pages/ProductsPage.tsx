@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { SidebarPanel } from "../ui/components/SidebarPanel";
 
 // Datos de ejemplo para la tabla de productos
 const productosData = [
@@ -145,122 +144,88 @@ export default function ProductsPage() {
   const [productos] = useState(productosData);
 
   return (
-    <div className="flex h-screen">
-      <SidebarPanel />
-
-      <div className="flex-1 bg-[#fffbeb] overflow-auto">
-        {/* Header sticky */}
-        <div className="sticky top-0 z-20 bg-[#fffbeb] p-6 pb-4 shadow-sm">
-          <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold">Productos</h1>
-            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center">
-              <span>Nuevo</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Contenido de la tabla con padding ajustado */}
-        <div className="px-6 pb-6 pt-2">
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50 top-[84px] z-10 shadow-sm">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Imagen
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Nombre
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Precio
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Stock
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Categoría
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Descripción
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Acciones
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {productos.map((producto) => (
-                    <tr key={producto.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <img
-                          src={producto.imagen || "/placeholder.svg"}
-                          alt={producto.nombre}
-                          width={50}
-                          height={50}
-                          className="rounded-md"
-                        />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-medium text-gray-900">
-                          {producto.nombre}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-gray-900">{producto.precio}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-gray-900">{producto.stock}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-gray-900">
-                          {producto.categoria}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-gray-900 text-sm">
-                          {producto.descripcion}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <div className="flex justify-center space-x-2">
-                          <button className="text-blue-500 hover:text-blue-700">
-                            <FaPencilAlt />
-                            <span className="sr-only">Editar</span>
-                          </button>
-                          <button className="text-red-500 hover:text-red-700">
-                            <FaTrashAlt />
-                            <span className="sr-only">Eliminar</span>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div className="flex flex-col p-6 gap-4">
+      <div className="flex justify-end">
+        <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center">
+          <span>Nuevo</span>
+        </button>
+      </div>
+      {/* Contenedor de la tabla con scroll */}
+      <div className="overflow-auto bg-white rounded-lg shadow-md max-h-[calc(100vh-200px)]"> {/* Ajuste de max-height */}
+        <div className="min-w-full">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50 sticky top-0 z-10 shadow-sm">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Imagen
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Nombre
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Precio
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Stock
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Categoría
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Descripción
+                </th>
+                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {productos.map((producto) => (
+                <tr key={producto.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <img
+                      src={producto.imagen || "/placeholder.svg"}
+                      alt={producto.nombre}
+                      width={50}
+                      height={50}
+                      className="rounded-md"
+                    />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="font-medium text-gray-900">
+                      {producto.nombre}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-gray-900">{producto.precio}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-gray-900">{producto.stock}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-gray-900">{producto.categoria}</div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="text-gray-900 text-sm">
+                      {producto.descripcion}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    <div className="flex justify-center space-x-2">
+                      <button className="text-blue-500 hover:text-blue-700">
+                        <FaPencilAlt />
+                        <span className="sr-only">Editar</span>
+                      </button>
+                      <button className="text-red-500 hover:text-red-700">
+                        <FaTrashAlt />
+                        <span className="sr-only">Eliminar</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
