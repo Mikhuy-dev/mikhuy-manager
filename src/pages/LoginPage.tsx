@@ -16,12 +16,11 @@ export const LoginPage = () => {
               />
             </div>
           ))}
-  <img
+ <img
     src="mikhuy_logo.webp"
     alt="logo"
-     className="absolute top-0 left-1-2 -translate-x-1/2 mt-85 max-w-[220px] md:max-w-[280px] lg:max-w-[320px] xl:max-w-[450px] animate-scale-in origin-center"
+    className="absolute top-[10%] left-1-2 -translate-x-1/2 -translate-y-1/2 w-[30vw] max-w-[450px] animate-scale-in origin-center"
   />
-
         </div>
 
         <div className="z-30 relative px-5">

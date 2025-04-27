@@ -33,9 +33,9 @@ function App() {
         <Route
           path="/storage"
           element={
-            <ProtectedRoute>
+
               <StoragePage />
-            </ProtectedRoute>
+
           }
         />
         <Route
@@ -49,9 +49,9 @@ function App() {
         <Route
           path="/products"
           element={
-            <ProtectedRoute>
+
               <ProductsPage />
-            </ProtectedRoute>
+
           }
         />
 

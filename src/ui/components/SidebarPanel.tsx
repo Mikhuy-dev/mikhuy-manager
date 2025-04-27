@@ -41,7 +41,7 @@ export function SidebarPanel() {
           </li>
           <li>
             <Link
-              to="/productos"
+              to="/products"
               className={`flex items-center px-4 py-2 rounded text-black $ hover:bg-black/5 transition-all duration-200 ${
                 currentPath === "/productos" || currentPath === "/"
                   ? "bg-orange-300"
@@ -54,7 +54,7 @@ export function SidebarPanel() {
           </li>
           <li>
             <Link
-              to="/almacen"
+              to="/storage"
               className={`flex items-center px-4 py-2 rounded text-black hover:bg-black/5 transition-all duration-200 ${
                 currentPath === "/almacen" ? "bg-orange-300" : ""
               }`}
