@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { ModalLayout } from "../ui/layout/ModalLayout";
+import { AddProductForm } from "../ui/components/AddProductForm";
 
 // Datos de ejemplo para la tabla de productos
 const productosData = [
@@ -143,15 +145,29 @@ const productosData = [
 export default function ProductsPage() {
   const [productos] = useState(productosData);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div className="flex flex-col p-6 gap-4">
       <div className="flex justify-end">
-        <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center">
+        <button
+          onClick={toggleModal}
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center"
+        >
           <span>Nuevo</span>
         </button>
       </div>
+      <ModalLayout title="Añadir nuevo producto" isOpen={isModalOpen} onClose={toggleModal}>
+        <AddProductForm/>
+      </ModalLayout>
       {/* Contenedor de la tabla con scroll */}
-      <div className="overflow-auto bg-white rounded-lg shadow-md max-h-[calc(100vh-200px)]"> {/* Ajuste de max-height */}
+      <div className="overflow-auto bg-white rounded-lg shadow-md max-h-[calc(100vh-200px)]">
+        {" "}
+        {/* Ajuste de max-height */}
         <div className="min-w-full">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50 sticky top-0 z-10 shadow-sm">
