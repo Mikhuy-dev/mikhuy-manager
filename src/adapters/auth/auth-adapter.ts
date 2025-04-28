@@ -1,19 +1,21 @@
 // adapters/auth/useAuth.ts
 import { useState } from "react";
 import { AuthLoginEntity } from "../../core/auth/entities/authlogin-entity";
+import { AuthUseCases } from "../../core/auth/use-cases/auth-usecases";
 import { authApi } from "../../services/auth/auth-api";
 
-
-export function useAuth() {
+// Instanciamos el caso de uso con el servicio concreto
+ const authUseCases = new AuthUseCases(authApi);
+	export function useAuth() {
   const [user, setUser] = useState<AuthLoginEntity | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
-  
     setLoading(true);
     try {
-      const data = await authApi.login(email, password);
+      // Llamamos al caso de uso en lugar del API directamente
+      const data = await authUseCases.executeLogin(email, password);
       setUser(data);
       setError(null);
     } catch (e: any) {
@@ -26,7 +28,8 @@ export function useAuth() {
   const logout = async () => {
     setLoading(true);
     try {
-      await authApi.logout();
+      // Llamamos al caso de uso para logout
+      await authUseCases.executeLogout();
       setUser(null);
     } catch (e: any) {
       setError(e.response?.data?.message ?? e.message);

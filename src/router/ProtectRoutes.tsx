@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   // const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
   if (!isAuthenticated) {
