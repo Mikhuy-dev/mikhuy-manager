@@ -2,17 +2,23 @@ import { AuthLoginEntity } from "../entities/authlogin-entity";
 import { AuthServicePort } from "../ports/auth-service-port";
 
 export class AuthUseCases {
-    constructor(private authService: AuthServicePort) {}
+  constructor(private authService: AuthServicePort) { }
+
+  async executeLogin(email: string, password: string): Promise<AuthLoginEntity> {
+    console.log("AuthUseCases: starting login");
   
-    async executeLogin(email: string, password: string): Promise<AuthLoginEntity> {
-
-        if(!email || !password) console.log("Email o contraseña vacíos");
-
-      return this.authService.login(email, password);
+    if (!email || !password) {
+      console.error("AuthUseCases: Email o contraseña vacíos");
+      throw new Error("Email o contraseña vacíos");
     }
   
-    async executeLogout(): Promise<void> {
-      return this.authService.logout();
-    }
+    console.log("AuthUseCases: calling authService.login");
+    return this.authService.login(email, password);
   }
   
+
+  
+  async executeLogout(): Promise<void> {
+    return this.authService.logout();
+  }
+}
