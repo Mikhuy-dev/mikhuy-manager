@@ -4,8 +4,9 @@ import { useState } from "react";
 import { StorageSearchBar } from "../ui/components/StorageSearchBar";
 import { FaEllipsisH } from "react-icons/fa";
 import { StorageFilters } from "../ui/components/StorageFilters";
-import { DropdownActions } from "../ui/components/DropDownAction";
+import { DropdownActions } from "../ui/components/DropdownAction";
 import { EditStorageModal } from "../ui/components/EditStorageModal";
+import { ModalLayout } from "../ui/layout/ModalLayout";
 
 // Interfaz corregida
 export interface Producto {
@@ -103,9 +104,27 @@ export default function StoragePage() {
     const matchSearch = producto.nombre
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+      
 
     return matchFiltro && matchSearch;
-  });
+    
+    
+    }
+  
+);
+const actualizarProducto = (updatedProduct: Partial<Producto>) => {
+  if (!productoEditando) return;
+
+  setAlmacen((prevAlmacen) =>
+    prevAlmacen.map((producto) =>
+      producto.id === productoEditando.id
+        ? { ...producto, ...updatedProduct, fechaModificacion: new Date().toISOString() }
+        : producto
+    )
+  );
+
+  setProductoEditando(null); // cerramos modal después de guardar
+};
 
   return (
     <div className="flex flex-col p-6 gap-4">
@@ -175,6 +194,7 @@ export default function StoragePage() {
     setProductoEditando(producto); // ✅ ahora sí se usa correctamente
     setOpenDropdownId(null);
   }}
+  
 />
                       
                       )}
@@ -209,19 +229,21 @@ export default function StoragePage() {
         
       )}
       {productoEditando && (
-  <EditStorageModal
-    producto={productoEditando}
-    onSave={(updatedProduct) => {
-      setAlmacen((prev) =>
-        prev.map((p) =>
-          p.id === productoEditando.id ? { ...p, ...updatedProduct } : p
-        )
-      );
-      setProductoEditando(null);
-    }}
+  <ModalLayout
+    isOpen={true}
     onClose={() => setProductoEditando(null)}
-  />
+    title="Editar Producto"
+  >
+    <EditStorageModal
+      producto={productoEditando}
+      onSave={(updatedProduct) => {
+        actualizarProducto(updatedProduct);
+      }}
+      onClose={() => setProductoEditando(null)}
+    />
+  </ModalLayout>
 )}
+
     </div>
   );
 }
