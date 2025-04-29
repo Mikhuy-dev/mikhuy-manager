@@ -4,6 +4,7 @@ interface StorageSearchBarProps {
   onToggleFilters: () => void;
 }
 
+
 export const StorageSearchBar = ({ searchTerm, onSearchChange, onToggleFilters }: StorageSearchBarProps) => {
   return (
     <div className="py-4 flex items-center gap-4">
@@ -13,13 +14,13 @@ export const StorageSearchBar = ({ searchTerm, onSearchChange, onToggleFilters }
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder="Buscar productos..."
-        className="flex-1 p-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+        className="flex-1 p-3 border border-black rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-red-500"
       />
 
       {/* Botón de Filtros */}
       <button
         onClick={onToggleFilters}
-        className="bg-[#c41c3c] hover:bg-[#a51833] text-white px-4 py-2 rounded-md border border-black"
+        className="bg-[#c41c3c] hover:bg-[#a51833] text-white px-4 py-2 rounded shadow-md border border-black"
       >
         Filtros
       </button>
