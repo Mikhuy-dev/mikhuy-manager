@@ -126,23 +126,23 @@ export const EditStorageModal = ({ producto, onSave, onClose }: EditStorageModal
             </select>
           </div>
 
-          {/* Precio */}
-          <div>
-            <label className="text-sm font-medium text-gray-700">Precio</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500">S/</span>
-              </div>
-              <input
-                type="number"
-                step="0.01"
-                value={precioVenta}
-                min={0}
-                onChange={(e) => setPrecioVenta(Number(e.target.value))}
-                className="pl-8 w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              />
-            </div>
-          </div>
+{/* Precio */}
+<div>
+  <label className="text-sm font-medium text-gray-700">Precio</label>
+  <div className="relative">
+    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <span className="text-gray-500">S/</span>
+    </div>
+    <input
+      type="number"
+      step="0.01"
+      min={0}
+      value={precioVenta}
+      onChange={(e) => setPrecioVenta(Number(e.target.value))}
+      className="pl-8 w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+    />
+  </div>
+</div>
 
           {/* Stock */}
           <div>

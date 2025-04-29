@@ -24,7 +24,6 @@ export interface Producto {
   notas: string;
 }
 
-// Datos de ejemplo actualizados
 const storageData: Producto[] = [
   {
     id: 1,
@@ -52,7 +51,21 @@ const storageData: Producto[] = [
     precioVenta: 2.5,
     notas: "Consumir fría."
   },
+  {
+    id: 3,
+    imagen: "/placeholder.svg?height=50&width=50",
+    nombre: "Yogurt Natural",
+    stock: 12,
+    estado: "Activado",
+    fechaAgregado: "25/04/2025",
+    fechaCaducidad: "09/05/2025",
+    descripcion: "Yogurt sin azúcar añadido",
+    categoria: "Lácteos",
+    precioVenta: 4.8,
+    notas: "Refrigerar a menos de 5°C"
+  }
 ];
+
 
 function parseFecha(fecha: string): Date {
   const [dia, mes, anio] = fecha.split("/").map(Number);
@@ -163,7 +176,19 @@ const actualizarProducto = (updatedProduct: Partial<Producto>) => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {productosFiltrados.map((producto) => (
-                  <tr key={producto.id} className="hover:bg-gray-50">
+                 <tr
+                 key={producto.id}
+                 className={`hover:bg-gray-50 ${
+                   (() => {
+                     const hoy = new Date();
+                     hoy.setHours(0, 0, 0, 0);
+                     const fechaCaducidad = parseFecha(producto.fechaCaducidad);
+                     fechaCaducidad.setHours(0, 0, 0, 0);
+                     const diasRestantes = (fechaCaducidad.getTime() - hoy.getTime()) / (1000 * 60 * 60 * 24);
+                     return diasRestantes >= 0 && diasRestantes <= 15 ? "bg-red-100" : "";
+                   })()
+                 }`}
+               >               
                     <td className="px-6 py-4 whitespace-nowrap">
                       <img src={producto.imagen} alt={producto.nombre} width={50} height={50} className="rounded-md mx-auto" />
                     </td>
