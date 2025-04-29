@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { IoClose } from "react-icons/io5";
 
 interface ModalProps {
   isOpen: boolean;
@@ -16,23 +17,22 @@ export function ModalLayout({ isOpen, onClose, children, title }: ModalProps) {
 
   return (
     <div
-      onClick={onClose} // Cierra el modal cuando se hace clic fuera del modal
+      onClick={onClose}
       className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
     >
       <div
-        onClick={handleModalClick} // Esto evita que el clic dentro del contenedor cierre el modal
+        onClick={handleModalClick}
         className="bg-white rounded-lg w-1/2 p-6 relative overflow-auto max-h-[90%]"
       >
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold">{title}</h3>
+        <div className="flex justify-between items-center mb-4 border-b p-6">
+          <h3 className="text-2xl font-semibold text-gray-800">{title}</h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="p-3 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700"
           >
-            <span className="text-2xl">&times;</span> {/* Ícono de cierre */}
+            <IoClose className="text-xl" />
           </button>
         </div>
-
         <div>{children}</div>
       </div>
     </div>
