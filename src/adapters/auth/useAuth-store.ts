@@ -1,47 +1,40 @@
-import { User } from "discord-types/general";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { authApi } from "../../services/auth/auth-api";
+// store/useSessionStore.ts
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { AuthLoginEntity } from '../../core/auth/entities/authlogin-entity';
+import { AuthResponseEntity } from '../../core/auth/entities/authresponse-entity';
 
-interface AuthState {
-    user: User | null;
-    loading: boolean;
-    error: string | null;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
+interface SessionState {
+  accessToken: string | null;
+  user: AuthResponseEntity | null;
+  setSession: (token: string, user: AuthResponseEntity['seller']) => void;
+  clearSession: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
-    persist(
-        (set) => ({
-            user: null,
-            loading: false,
-            error: null,
-            login: async (email, password) => {
-                set({ loading: true });
-                try {
-                    const userData = await authApi.login(email, password);
-                    set({ user: userData, error: null });
-                } catch (err: any) {
-                    set({ error: err.response?.data?.message || err.message });
-                } finally {
-                    set({ loading: false });
-                }
+export const useSessionStore = create<SessionState>()(
+  persist(
+    (set) => ({
+      accessToken: null,
+      user: null,
+      setSession: (token, user) => set({ accessToken: token, user }),
+      clearSession: () => set({ accessToken: null, user: null }),
+    }),
+    {
+      name: 'session-storage', // 🔐 clave en localStorage
+      storage: typeof window !== 'undefined'
+        ? {
+            getItem: (name) => {
+              const item = localStorage.getItem(name);
+              return item ? JSON.parse(item) : null;
             },
-            logout: async () => {
-                set({ loading: true });
-                try {
-                    await authApi.logout();
-                    set({ user: null, error: null });
-                } catch (err: any) {
-                    set({ error: err.response?.data?.message || err.message });
-                } finally {
-                    set({ loading: false });
-                }
-            }
-        }),
-        {
-            name: 'auth-storage', // clave en el localStorage
-        }
-    )
+            setItem: (name, value) => {
+              localStorage.setItem(name, JSON.stringify(value));
+            },
+            removeItem: (name) => {
+              localStorage.removeItem(name);
+            },
+          }
+        : undefined, // importante en SSR
+    }
+  )
 );

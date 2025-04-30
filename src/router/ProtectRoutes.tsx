@@ -1,15 +1,15 @@
 // src/ui/components/ProtectedRoute.tsx
 import { Navigate } from "react-router-dom";
+import { useSessionStore } from "../adapters/auth/useAuth-store";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const isAuthenticated = false;
-  // const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const token = useSessionStore((state) => state.accessToken);
 
-  if (!isAuthenticated) {
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 

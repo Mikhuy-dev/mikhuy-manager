@@ -1,5 +1,6 @@
 // src/ui/components/PublicRoute.tsx
 import { Navigate } from "react-router-dom";
+import { useSessionStore } from "../adapters/auth/useAuth-store";
 
 
 interface PublicRouteProps {
@@ -7,8 +8,9 @@ interface PublicRouteProps {
 }
 
 const PublicRoute = ({ children }: PublicRouteProps) => {
-    const isAuthenticated = false;
-  if (isAuthenticated) {
+  const token = useSessionStore((state) => state.accessToken);
+    
+  if (token) {
     return <Navigate to="/" replace />;
   }
 
