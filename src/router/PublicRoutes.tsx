@@ -1,6 +1,6 @@
 // src/ui/components/PublicRoute.tsx
 import { Navigate } from "react-router-dom";
-import { useSessionStore } from "../adapters/auth/useAuth-store";
+import { useSessionStore } from "../store/useAuth-store";
 
 
 interface PublicRouteProps {

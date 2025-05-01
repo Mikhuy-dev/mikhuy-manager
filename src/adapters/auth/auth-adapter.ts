@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { AuthUseCases } from "../../core/auth/use-cases/auth-usecases";
 import { authApi } from "../../services/auth/auth-api";
-import { useSessionStore } from "./useAuth-store";
+import { useSessionStore } from "../../store/useAuth-store";
 
 const authUseCases = new AuthUseCases(authApi);
 
@@ -16,7 +16,7 @@ export function useAuth() {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const data = await authUseCases.executeLogin(email, password);
+      const data = await authUseCases.executeLogin({ email, password });
       setSession(data.accesstoken, data.seller); // almacena los datos en zustand
       setError(null);
     } catch (e: any) {

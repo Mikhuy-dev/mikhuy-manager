@@ -1,13 +1,13 @@
 // store/useSessionStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AuthLoginEntity } from '../../core/auth/entities/authlogin-entity';
-import { AuthResponseEntity } from '../../core/auth/entities/authresponse-entity';
+
+import { UserEntity } from '../core/auth/entities/user-entity';
 
 interface SessionState {
   accessToken: string | null;
-  user: AuthResponseEntity | null;
-  setSession: (token: string, user: AuthResponseEntity['seller']) => void;
+  seller: UserEntity | null;
+  setSession: (token: string, seller: UserEntity) => void;
   clearSession: () => void;
 }
 
@@ -15,12 +15,12 @@ export const useSessionStore = create<SessionState>()(
   persist(
     (set) => ({
       accessToken: null,
-      user: null,
-      setSession: (token, user) => set({ accessToken: token, user }),
-      clearSession: () => set({ accessToken: null, user: null }),
+      seller: null,
+      setSession: (token, seller) => set({ accessToken: token, seller}),
+      clearSession: () => set({ accessToken: null, seller: null }),
     }),
     {
-      name: 'session-storage', // 🔐 clave en localStorage
+      name: 'session-storage', 
       storage: typeof window !== 'undefined'
         ? {
             getItem: (name) => {
@@ -28,13 +28,13 @@ export const useSessionStore = create<SessionState>()(
               return item ? JSON.parse(item) : null;
             },
             setItem: (name, value) => {
-              localStorage.setItem(name, JSON.stringify(value));
+              sessionStorage.setItem(name, JSON.stringify(value));
             },
             removeItem: (name) => {
-              localStorage.removeItem(name);
+              sessionStorage.removeItem(name);
             },
           }
-        : undefined, // importante en SSR
+        : undefined,
     }
   )
 );

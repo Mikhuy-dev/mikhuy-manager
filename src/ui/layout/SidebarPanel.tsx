@@ -15,7 +15,7 @@ export function SidebarPanel() {
   };
 
   return (
-    <div className="w-[250px] h-screen bg-[#fffbeb] border-r flex flex-col">
+    <div className="w-[250px] h-screen bg-white border-r flex flex-col">
       {/* Logo */}
       <div className="flex flex-col items-center justify-center p-4 gap-3">
         <div className="flex flex-col items-center justify-center">

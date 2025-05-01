@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StorageSearchBar } from "../ui/components/StorageSearchBar";
 import { StorageFilters } from "../ui/components/StorageFilters";
 import { FaEllipsisH } from "react-icons/fa";
+import FilterButton from "../ui/components/FilterButton";
 
 // Datos de ejemplo
 const storageData = [
@@ -66,13 +67,16 @@ export default function StoragePage() {
   });
 
   return (
-    <div className="flex flex-col p-6 gap-4">
-      {/* SearchBar */}
+    <div className="flex flex-col px-6 gap-4">
+      <div className="flex justify-between items-center gap-4 ">
       <StorageSearchBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         onToggleFilters={() => setShowFilters(!showFilters)}
       />
+
+      <FilterButton />
+      </div>
 
       {/* Filtros (cajita desplegable) */}
       {showFilters && (
@@ -84,6 +88,7 @@ export default function StoragePage() {
           }}
         />
       )}
+
 
       {/* Tabla */}
       <div className="">

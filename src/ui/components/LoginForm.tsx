@@ -1,13 +1,13 @@
 import React, { useState } from "react"; //
 import { useAuth } from "../../adapters/auth/auth-adapter";
-import { useSessionStore } from "../../adapters/auth/useAuth-store";
+import { useSessionStore } from "../../store/useAuth-store";
 
 export default function LoginForm() {
   
   const { loading, error, login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSessionStore((state) => state.user);
+  const user = useSessionStore((state) => state.seller);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function LoginForm() {
 
         {user && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            Bienvenido, {user.seller.email}
+            Bienvenido, {user.name}
           </div>
         )}
 

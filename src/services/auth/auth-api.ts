@@ -1,10 +1,10 @@
-import axios from "axios";
-import { AuthServicePort } from "../../core/auth/ports/auth-service-port";
 
+import { AuthServicePort } from "../../core/auth/ports/auth-service-port";
+import api from "../axios-intance";
 
 export const authApi: AuthServicePort = {
     async login(email, password) {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/loginSeller`, {
+        const response = await api.post(`${import.meta.env.VITE_API_URL}/auth/loginSeller`, {
           email, password
         });     
         return response.data;
@@ -13,6 +13,6 @@ export const authApi: AuthServicePort = {
 
     async logout() {
 
-        await axios.post('/api/logout');
+        await api.post('/api/logout');
     }
 };
