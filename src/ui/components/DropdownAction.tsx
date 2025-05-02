@@ -1,22 +1,22 @@
-import { Producto } from "../../pages/StoragePage"; // ✅ importa el tipo correcto
+import type { ProductEntity } from "../../core/auth/entities/Product-entity"; // ajusta la ruta real
 
 interface DropdownActionsProps {
-    producto: Producto;
-    onDesactivar: () => void;
-    onVerDetalles: () => void;
-    onEditar: () => void;
-  }
-  
+  producto: ProductEntity;
+  onDesactivar: () => void;
+  onVerDetalles: () => void;
+  onEditar: () => void;
+}
 
 export const DropdownActions = ({ producto, onDesactivar, onVerDetalles, onEditar }: DropdownActionsProps) => {
   return (
-    <div className="absolute right-0 mt-2 w-40 bg-white border border-black rounded-md shadow-md z-50 animate-slide-down p-2">
+    <div className="fixed mt-2 w-40 bg-white border border-black rounded-md shadow-md z-50 animate-slide-down p-2">
       <button
-        onClick={onDesactivar}
-        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-      >
-        {producto.estado === "Activado" ? "Desactivar" : "Activar"}
-      </button>
+  onClick={onDesactivar}
+  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+>
+  {producto.status === "ENABLED" ? "Desactivar" : "Activar"}
+</button>
+
 
       <button
         onClick={onVerDetalles}
