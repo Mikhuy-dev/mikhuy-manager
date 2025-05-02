@@ -16,15 +16,15 @@ export const useSessionStore = create<SessionState>()(
     (set) => ({
       accessToken: null,
       seller: null,
-      setSession: (token, seller) => set({ accessToken: token, seller}),
+      setSession: (token, seller) => set({ accessToken: token, seller }),
       clearSession: () => set({ accessToken: null, seller: null }),
     }),
     {
-      name: 'session-storage', 
+      name: 'session-storage',
       storage: typeof window !== 'undefined'
         ? {
             getItem: (name) => {
-              const item = localStorage.getItem(name);
+              const item = sessionStorage.getItem(name);
               return item ? JSON.parse(item) : null;
             },
             setItem: (name, value) => {

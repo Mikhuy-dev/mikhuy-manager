@@ -6,6 +6,7 @@ interface StorageSearchBarProps {
   onToggleFilters: () => void;
 }
 
+
 export const StorageSearchBar = ({ searchTerm, onSearchChange, onToggleFilters }: StorageSearchBarProps) => {
   return (
     <div className="py-4 flex items-center gap-4 w-full">
