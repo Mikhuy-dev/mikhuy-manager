@@ -1,4 +1,9 @@
-import { FaHome, FaShoppingCart, FaBox, FaWarehouse } from "react-icons/fa";
+import { FaHome, FaShoppingCart } from "react-icons/fa";
+
+import { IoGrid } from "react-icons/io5";
+
+import { FaBoxOpen } from "react-icons/fa";
+
 import Home from "../pages/Home.tsx";
 import StoragePage from "../pages/StoragePage.tsx";
 import OrderPage from "../pages/OrderPage.tsx";
@@ -23,7 +28,7 @@ export const protectedRoutes: ProtectedRouteItem[] = [
     path: "/storage",
     namePage: "Almacén",
     element: <StoragePage />,
-    icon: <FaWarehouse className="mr-2" />,
+    icon: <FaBoxOpen className="mr-2" />,
   },
   {
     path: "/order",
@@ -35,6 +40,6 @@ export const protectedRoutes: ProtectedRouteItem[] = [
     path: "/products",
     namePage: "Productos",
     element: <ProductsPage />,
-    icon: <FaBox className="mr-2" />,
+    icon: <IoGrid className="mr-2" />,
   },
 ];

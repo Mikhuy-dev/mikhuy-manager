@@ -5,7 +5,9 @@ import "./MontserratFont.css"
 import "./Exo2Font.css"
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
+import { AxiosInterceptor } from './adapters/http/axiosInterceptor.ts'
 
+AxiosInterceptor();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

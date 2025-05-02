@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { RiEdit2Line, RiLogoutCircleLine, RiUser3Line } from "react-icons/ri";
 import { protectedRoutes } from "../../router/routes";
-import { useState } from "react";
+import { use, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSessionStore } from "../../store/useAuth-store";
 
@@ -10,6 +10,7 @@ export function SidebarPanel() {
   const currentPath = location.pathname;
 
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const seller = useSessionStore((state) => state.seller);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -20,7 +21,7 @@ export function SidebarPanel() {
   return (
     <div className="w-[250px] h-screen bg-white border-r flex flex-col">
       {/* Logo */}
-      <div className="flex flex-col items-center justify-center p-4 gap-3">
+      <div className="flex flex-col items-center justify-center p-4 gap-1">
         <div className="flex flex-col items-center justify-center">
           <img
             src="/mikhuy_icon.webp"
@@ -41,7 +42,7 @@ export function SidebarPanel() {
               <Link
                 to={route.path}
                 className={`flex items-center px-4 py-2 rounded text-black hover:bg-black/5 transition-all duration-200 ${
-                  currentPath === route.path ? "bg-orange-300" : ""
+                  currentPath === route.path ? "bg-black text-white hover:bg-black" : ""
                 }`}
               >
                 {route.icon} {/* Aquí se muestra el icono */}
@@ -54,12 +55,12 @@ export function SidebarPanel() {
 
       {/* Footer con menú flotante */}
       <div className="w-full h-[1.5px] bg-gray-200"></div>
-      <div className="mb-5 mt-5 flex items-center justify-center relative">
+      <div className="mb-2 mt-2 flex items-center justify-center relative">
         <button
           onClick={toggleMenu}
-          className="text-black rounded-3xl flex items-center gap-3 px-3 py-2 hover:bg-gray-50 transition-all duration-200"
+          className="text-black rounded-3xl flex items-center gap-3 outline-none px-3 py-2 hover:bg-gray-50 transition-all duration-200"
         >
-          <div className="border border-gray-400 rounded-full">
+          <div className=" rounded-full">
             <img
               src="/mikhuy_icon.webp"
               alt="mikhuy icon image"
@@ -67,8 +68,8 @@ export function SidebarPanel() {
             />
           </div>
           <div className="flex flex-col items-start">
-            <p className="font-semibold">Babä</p>
-            <p className="text-gray-400 text-sm">babä@gmail.com</p>
+            <p className="font-semibold text-black/80">{seller?.name}</p>
+            <p className="text-gray-400 text-sm">{seller?.email}</p>
           </div>
           <IoIosArrowDown />
         </button>

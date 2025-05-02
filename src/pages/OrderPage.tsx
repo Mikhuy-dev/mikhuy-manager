@@ -5,7 +5,7 @@ export default function OrderPage() {
         Order Page
       </h1>
       <p className="text-center text-shadow">
-        This is a simple CMS built with React and Tailwind CSS
+        This is a simple Manager built with React and Tailwind CSS
       </p>
     </div>
   );
