@@ -1,15 +1,15 @@
 // Archivo: src/ui/components/StorageTable.tsx
 import { FaEllipsisH } from "react-icons/fa";
 import { DropdownActions } from "./DropdownAction";
-import type { ProductEntity } from "../../core/auth/entities/Product-entity";
+import type { StorageEntity } from "../../core/Storage/entities/Storage-entity";
 import { useEffect, useRef, useState } from "react";
 
 interface StorageTableProps {
-  productos: ProductEntity[];
+  productos: StorageEntity[];
   openDropdownId: string | null;
   toggleDropdown: (id: string) => void;
-  onEditar: (producto: ProductEntity) => void;
-  onVerDetalles: (producto: ProductEntity) => void;
+  onEditar: (producto: StorageEntity) => void;
+  onVerDetalles: (producto: StorageEntity) => void;
   onDesactivar: (id: string) => void;
   filtroActivo: string;
 }

@@ -3,6 +3,7 @@ import { RiEdit2Line, RiLogoutCircleLine, RiUser3Line } from "react-icons/ri";
 import { protectedRoutes } from "../../router/routes";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { useSessionStore } from "../../store/useAuth-store";
 
 export function SidebarPanel() {
   const location = useLocation();
@@ -14,8 +15,10 @@ export function SidebarPanel() {
     setMenuOpen(!menuOpen);
   };
 
+  const {clearSession} = useSessionStore();
+
   return (
-    <div className="w-[250px] h-screen bg-[#fffbeb] border-r flex flex-col">
+    <div className="w-[250px] h-screen bg-white border-r flex flex-col">
       {/* Logo */}
       <div className="flex flex-col items-center justify-center p-4 gap-3">
         <div className="flex flex-col items-center justify-center">
@@ -87,7 +90,7 @@ export function SidebarPanel() {
               <span className="text-black">Editar perfil</span>
             </Link>
             <button
-              onClick={() => console.log("Cerrar sesión")}
+              onClick={clearSession}
               className="flex items-center gap-2 px-2 py-2 bg-red-500 hover:bg-red-700 rounded w-full text-left transition-all"
             >
               <RiLogoutCircleLine className="text-white" />

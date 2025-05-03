@@ -1,7 +1,7 @@
-import type { ProductEntity } from "../../core/auth/entities/Product-entity"; // ajusta la ruta real
+import type { StorageEntity } from "../../core/Storage/entities/Storage-entity"; // ajusta la ruta real
 
 interface DropdownActionsProps {
-  producto: ProductEntity;
+  producto: StorageEntity;
   onDesactivar: () => void;
   onVerDetalles: () => void;
   onEditar: () => void;

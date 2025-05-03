@@ -1,20 +1,22 @@
 // Archivo: src/pages/StoragePage.tsx
 import { useEffect, useRef, useState } from "react";
 import { StorageSearchBar } from "../ui/components/StorageSearchBar";
+import FilterButton from "../ui/components/FilterButton";
 import { StorageFilters } from "../ui/components/StorageFilters";
 import { EditStorageModal } from "../ui/components/EditStorageModal";
 import { ModalLayout } from "../ui/layout/ModalLayout";
 import { StorageTable } from "../ui/components/StorageTable";
-import { useStorage } from "../hooks/UseStorage";
-import { ProductEntity } from "../core/auth/entities/Product-entity";
+import { useStorage } from "../adapters/Storage/Storage-adapters";
+import { StorageEntity } from "../core/Storage/entities/Storage-entity";
 
 export default function StoragePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState<string>("");
   const [showFilters, setShowFilters] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
-  const [productDetails, setProductDetails] = useState<ProductEntity | null>(null);
-  const [editingProduct, setEditingProduct] = useState<ProductEntity | null>(null);
+  const [productDetails, setProductDetails] = useState<StorageEntity | null>(null);
+  const [editingProduct, setEditingProduct] = useState<StorageEntity | null>(null);
+  
 
   const { products, fetchAll, loading, error } = useStorage();
   const pageRef = useRef<HTMLDivElement | null>(null);
@@ -58,13 +60,18 @@ export default function StoragePage() {
   });
 
   return (
-    <div ref={pageRef} className="flex flex-col p-6 gap-4">
+    <div className="flex flex-col px-6 gap-4">
+      <div className="flex justify-between items-center gap-4 ">
       <StorageSearchBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         onToggleFilters={() => setShowFilters(!showFilters)}
       />
 
+      <FilterButton />
+      </div>
+
+      {/* Filtros (cajita desplegable) */}
       {showFilters && (
         <StorageFilters
           filtroActivo={filter}

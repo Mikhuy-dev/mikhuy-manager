@@ -1,4 +1,4 @@
-export interface ProductEntity {
+export interface StorageEntity {
     id: string;
     name: string;
     price: string;
@@ -9,6 +9,5 @@ export interface ProductEntity {
     sellerId: string;
     expirationDate: string;
     status: "ENABLED" | "DISABLED";
-    notes:string;
   }
   

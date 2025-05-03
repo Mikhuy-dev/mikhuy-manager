@@ -1,11 +1,11 @@
 // Archivo: EditStorageModal.tsx
 import React, { useState } from "react";
 import { BsUpload } from "react-icons/bs";
-import { ProductEntity } from "../../core/auth/entities/Product-entity"; // Usa el tipo oficial
+import { StorageEntity } from "../../core/Storage/entities/Storage-entity"; // Usa el tipo oficial
 
 interface EditStorageModalProps {
-  producto: ProductEntity;
-  onSave: (updatedProduct: Partial<ProductEntity>) => void;
+  producto: StorageEntity;
+  onSave: (updatedProduct: Partial<StorageEntity>) => void;
   onClose: () => void;
 }
 
@@ -32,7 +32,7 @@ export const EditStorageModal = ({
   };
 
   const handleSubmit = () => {
-    const updatedProduct: Partial<ProductEntity> = {
+    const updatedProduct: Partial<StorageEntity> = {
       name: nombre,
       stock,
       categoryId: categoria,

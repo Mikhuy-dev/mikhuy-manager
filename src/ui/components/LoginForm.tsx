@@ -1,15 +1,19 @@
 import React, { useState } from "react"; //
 import { useAuth } from "../../adapters/auth/auth-adapter";
+import { useSessionStore } from "../../store/useAuth-store";
 
 export default function LoginForm() {
-  const { user, loading, error, login } = useAuth();
+  
+  const { loading, error, login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const user = useSessionStore((state) => state.seller);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     login(username, password);
   };
+  
 
 
   return (
@@ -26,6 +30,13 @@ export default function LoginForm() {
             {error}
           </div>
         )}
+
+        {user && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            Bienvenido, {user.name}
+          </div>
+        )}
+
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4 mt-20">

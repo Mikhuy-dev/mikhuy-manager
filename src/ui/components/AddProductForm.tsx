@@ -2,19 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 import { BsUpload } from "react-icons/bs";
-
-interface FormData {
-  name: string;
-  price: number;
-  stock: number;
-  description: string;
-  categoryId: string;
-  sellerId: string;
-  image: File | null;
-}
+import { ProductEntity } from "../../core/products/entities/product-entity";
 
 export function AddProductForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ProductEntity>({
     name: "",
     price: 0,
     stock: 0,
@@ -24,7 +15,7 @@ export function AddProductForm() {
     image: null,
   });
 
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<ProductEntity>>({});
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   // Maneja el cambio de valores del formulario
@@ -48,7 +39,7 @@ export function AddProductForm() {
 
   // Validación simple de los campos
   const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<ProductEntity> = {};
     if (!formData.name) newErrors.name = "El nombre es obligatorio";
     // if (!formData.price) newErrors.price = "El precio es obligatorio";
     // if (!formData.stock) newErrors.stock = "El stock es obligatorio";

@@ -1,20 +1,23 @@
 // adapters/auth/useAuth.ts
 import { useState } from "react";
-import { AuthLoginEntity } from "../../core/auth/entities/authlogin-entity";
+import { AuthUseCases } from "../../core/auth/use-cases/auth-usecases";
 import { authApi } from "../../services/auth/auth-api";
+import { useSessionStore } from "../../store/useAuth-store";
 
+const authUseCases = new AuthUseCases(authApi);
 
 export function useAuth() {
-  const [user, setUser] = useState<AuthLoginEntity | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const setSession = useSessionStore((state) => state.setSession); 
+  const clearSession = useSessionStore((state) => state.clearSession);
 
   const login = async (email: string, password: string) => {
-  
     setLoading(true);
     try {
-      const data = await authApi.login(email, password);
-      setUser(data);
+      const data = await authUseCases.executeLogin({ email, password });
+      setSession(data.accesstoken, data.seller); // almacena los datos en zustand
       setError(null);
     } catch (e: any) {
       setError(e.response?.data?.message ?? e.message);
@@ -26,8 +29,8 @@ export function useAuth() {
   const logout = async () => {
     setLoading(true);
     try {
-      await authApi.logout();
-      setUser(null);
+      await authUseCases.executeLogout();
+      clearSession(); 
     } catch (e: any) {
       setError(e.response?.data?.message ?? e.message);
     } finally {
@@ -35,5 +38,5 @@ export function useAuth() {
     }
   };
 
-  return { user, loading, error, login, logout };
+  return { loading, error, login, logout };
 }

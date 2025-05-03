@@ -12,8 +12,8 @@ export default function PanelWrapper({
   return (
     <div className="flex">
       <SidebarPanel /> {/* Sidebar a la izquierda */}
-      <div className="flex-1 bg-[#fffbeb]">
-        <div className="bg-[#fffbeb] p-6 pb-4 shadow-sm">
+      <div className="flex-1 bg-white">
+        <div className="bg-white p-6 pb-4 shadow-sm">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold">{namePage}</h1>
           </div>
