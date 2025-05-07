@@ -7,8 +7,11 @@ export interface ProductServicePort {
     price: number,
     stock: number,
     description: string,
+    imageUrl: string,
     categoryId: string,
     sellerId: string,
-    image: File | null
+    expirationDate: string
   ): Promise<ProductResponseEntity>;
+
+  getProducts(sellerId: string): Promise<ProductResponseEntity[]>;
 }

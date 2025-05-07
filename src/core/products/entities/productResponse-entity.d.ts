@@ -1,7 +1,7 @@
 export interface ProductResponseEntity {
   id: string;
   name: string;
-  price: string;
+  price: number;
   stock: number;
   description: string;
   imageUrl: string;

@@ -5,14 +5,14 @@ import { BsUpload } from "react-icons/bs";
 import { ProductEntity } from "../../core/products/entities/product-entity";
 
 export function AddProductForm() {
-  const [formData, setFormData] = useState<ProductEntity>({
+  const [formData, setFormData] = useState<Partial<ProductEntity>>({
     name: "",
     price: 0,
     stock: 0,
     description: "",
     categoryId: "",
     sellerId: "",
-    image: null,
+    imageUrl: "",
   });
 
   const [errors, setErrors] = useState<Partial<ProductEntity>>({});
@@ -25,7 +25,7 @@ export function AddProductForm() {
     if (name === "image" && files) {
       // Subir la imagen y mostrar la vista previa
       const imageFile = files[0];
-      setFormData({ ...formData, image: imageFile });
+      //setFormData({ ...formData, image: imageFile });
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -65,7 +65,7 @@ export function AddProductForm() {
     try {
       // Primero subimos la imagen y obtenemos la URL
       const formDataImage = new FormData();
-      formDataImage.append("image", formData.image as Blob);
+      //formDataImage.append("image", formData.image as Blob);
 
       const imageResponse = await axios.post("/api/upload", formDataImage, {
         headers: {
@@ -87,7 +87,7 @@ export function AddProductForm() {
         description: "",
         categoryId: "",
         sellerId: "",
-        image: null,
+        imageUrl: "",
       });
       setImageUrl(null); // Limpiar la vista previa
     } catch (error) {
@@ -173,10 +173,10 @@ export function AddProductForm() {
             <option value="" disabled selected>
               Seleccionar categoría
             </option>
-            <option value="1">Abarrotes</option>
-            <option value="2">Bebidas</option>
-            <option value="3">Snacks</option>
-            <option value="4">Lácteos</option>
+            <option value="35670354-b91b-45ad-b786-29ffd253e013">Comidas rápidas</option>
+            <option value="35ea7b17-412b-4e72-b26c-6dbcd8a5cb55">Snacks</option>
+            <option value="747cb17f-f050-4d57-9ce9-e8d79d578ebe">Repostería</option>
+            <option value="de1eee8d-857c-4918-bd2d-567180e250e3">Bebidas</option>
           </select>
           {errors.categoryId && (
             <p className="text-red-500 text-xs">{errors.categoryId}</p>

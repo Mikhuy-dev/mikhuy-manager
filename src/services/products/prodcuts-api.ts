@@ -32,7 +32,14 @@ export const productApi: ProductServicePort = {
         },
       }
     );
-
     return response.data as ProductResponseEntity;
+  },
+  
+  async getProducts(sellerId) {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/store/getProducts/${sellerId}`
+    );
+    console.log("get products", response);
+    return response.data;
   },
 };

@@ -9,9 +9,10 @@ export class ProductUseCases {
     price: number,
     stock: number,
     description: string,
+    imageUrl: string,
     categoryId: string,
     sellerId: string,
-    image: File | null
+    expirationDate: string
   ): Promise<ProductResponseEntity> {
     const result = await this.productService.addProduct(
       name,
@@ -20,8 +21,16 @@ export class ProductUseCases {
       description,
       categoryId,
       sellerId,
-      image
+      imageUrl,
+      expirationDate
     );
+    return result;
+  }
+
+  async executeGetProducts(
+    sellerId: string
+  ): Promise<ProductResponseEntity[]> {
+    const result = await this.productService.getProducts(sellerId);
     return result;
   }
 }

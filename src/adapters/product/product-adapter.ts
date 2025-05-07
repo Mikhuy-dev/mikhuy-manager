@@ -1,22 +1,18 @@
 import { useState } from "react";
 import { ProductEntity } from "../../core/products/entities/product-entity";
-import {
-  ProductApiError,
-  ProductResponseEntity,
-} from "../../core/products/entities/productResponse-entity";
+import { ProductResponseEntity } from "../../core/products/entities/productResponse-entity";
 import { ProductUseCases } from "../../core/products/use-cases/products-usecases";
 import { productApi } from "../../services/products/prodcuts-api";
-import axios from "axios";
 
 const productUseCases = new ProductUseCases(productApi);
 
 //////////////////
-function parseApiError(e: unknown): ProductApiError {
-  if (axios.isAxiosError(e) && e.response?.data) {
-    return e.response.data as ProductApiError;
-  }
-  return { message: "Error desconocido", statusCode: 500 };
-}
+// function parseApiError(e: unknown): ProductApiError {
+//   if (axios.isAxiosError(e) && e.response?.data) {
+//     return e.response.data as ProductApiError;
+//   }
+//   return { message: "Error desconocido", statusCode: 500 };
+// }
 //////////////////
 
 export function useProduct() {
@@ -35,23 +31,40 @@ export function useProduct() {
         product.description,
         product.categoryId,
         product.sellerId,
-        product.image
+        product.imageUrl,
+        product.expirationDate
       );
       setError(null);
       return created;
-    } catch (e) {
-      //setError(e.response?.data?.message ?? e.message);
-      const apiError = parseApiError(e);
-      setError(apiError.message);
+    } catch (e: any) {
+      setError(e.response?.data?.message ?? e.message);
+      //const apiError = parseApiError(e);
+      //setError(apiError.message);
       return null;
     } finally {
       setLoading(false);
     }
   };
 
+  const getProducts = async (
+    sellerId: string
+  ): Promise<ProductResponseEntity[] | null> => {
+    setLoading(true);
+    try {
+      const products = await productUseCases.executeGetProducts(sellerId);
+      setError(null);
+      return products;
+    } catch (e: any) {
+      setError(e.response?.data?.message ?? e.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     loading,
     error,
     createProduct,
+    getProducts,
   };
 }
