@@ -1,12 +1,13 @@
 import { AxiosError, InternalAxiosRequestConfig } from "axios";
 import axiosClient from "../axiosClient";
-import { useSessionStore } from "../../../store/useAuth-store";
+
 
 let isRefreshing = false;
 let failedQueue: {
   resolve: (token: string) => void;
   reject: (error: unknown) => void;
 }[] = [];
+
 
 const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
@@ -21,11 +22,10 @@ const processQueue = (error: unknown, token: string | null = null) => {
 
 export async function newToken(error: AxiosError) {
   const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
-  const responseData = error.response?.data as { renovate?: boolean };
+  const responseData = error.response?.data as { error?: string; renovate?: boolean };
 
   if (error.response?.status === 401) {
-    useSessionStore.getState().clearSession();
-    window.location.href = "/auth";
+    window.location.href = "/login";
     return Promise.reject(error);
   }
 
@@ -51,23 +51,37 @@ export async function newToken(error: AxiosError) {
     isRefreshing = true;
 
     try {
-      const refreshResponse = await axiosClient.post("/auth/accessToken");
-      const newAccessToken = refreshResponse.data.accessToken;
+      const rawSession = sessionStorage.getItem("session");
+      const parsedSession = rawSession ? JSON.parse(rawSession) : null;
+      const refreshToken = parsedSession?.state?.session?.refreshtoken;
 
-      const { seller } = useSessionStore.getState();
-      useSessionStore.getState().setSession(newAccessToken, seller!);
+      if (!refreshToken) {
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
 
+      const response = await axiosClient.post("/auth/getAccessTokenSeller", {
+        refreshToken: sessionStorage.getItem("refreshToken"), 
+      });
+
+      const newAccessToken = response.data.accessToken;
+
+      
+      parsedSession.state.session.accesstoken = newAccessToken;
+      sessionStorage.setItem("session", JSON.stringify(parsedSession));
+
+  
       axiosClient.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
       processQueue(null, newAccessToken);
       isRefreshing = false;
 
+    
       originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
       return axiosClient(originalRequest);
     } catch (refreshError) {
       processQueue(refreshError, null);
       isRefreshing = false;
-      useSessionStore.getState().clearSession();
-      window.location.href = "/auth";
+      window.location.href = "/login";
       return Promise.reject(refreshError);
     }
   }

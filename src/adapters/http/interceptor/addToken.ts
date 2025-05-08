@@ -1,11 +1,13 @@
 import { InternalAxiosRequestConfig } from "axios";
-import { useSessionStore } from "../../../store/useAuth-store";
+import { AuthResponseEntity } from "../../../core/auth/entities/authresponse-entity";
 
 export function addToken(req: InternalAxiosRequestConfig) {
-  const token = useSessionStore.getState().accessToken;
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
-  }
-  req.headers["Content-Type"] = "application/json";
-  return req;
+    const storedUser = sessionStorage.getItem("seller"); 
+    const user: AuthResponseEntity | null = storedUser ? JSON.parse(storedUser) : null;
+    if (!user || !user.accesstoken) return req;
+
+    req.headers.Authorization = `Bearer ${user.accesstoken}`;
+    req.headers["Content-Type"] = "application/json";
+
+    return req;
 }

@@ -4,5 +4,5 @@ export interface UserEntity {
     goal: number;
     email: string;
     phone: string;
-  }
+}
   

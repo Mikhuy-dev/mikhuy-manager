@@ -17,7 +17,7 @@ export function useAuth() {
     setLoading(true);
     try {
       const data = await authUseCases.executeLogin({ email, password });
-      setSession(data.accesstoken, data.seller); // almacena los datos en zustand
+      setSession(data); // almacena los datos en zustand
       setError(null);
     } catch (e: any) {
       setError(e.response?.data?.message ?? e.message);

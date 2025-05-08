@@ -1,6 +1,7 @@
 // src/ui/components/PublicRoute.tsx
 import { Navigate } from "react-router-dom";
 import { useSessionStore } from "../store/useAuth-store";
+import { useFetchAuthSession } from "../hooks/getProfileuser";
 
 
 interface PublicRouteProps {
@@ -8,9 +9,13 @@ interface PublicRouteProps {
 }
 
 const PublicRoute = ({ children }: PublicRouteProps) => {
-  const token = useSessionStore((state) => state.accessToken);
+  const seller = useSessionStore((state) => state.session?.seller);
+  const {isLoading}= useFetchAuthSession()
+  console.log(seller)
+
+  if(isLoading) return <div className="flex justify-center items-center h-screen">Loading...</div>
     
-  if (token) {
+  if (seller) {
     return <Navigate to="/" replace />;
   }
 

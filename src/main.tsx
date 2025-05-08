@@ -7,7 +7,8 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AxiosInterceptor } from './adapters/http/axiosInterceptor.ts'
 
-AxiosInterceptor();
+
+AxiosInterceptor()
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
